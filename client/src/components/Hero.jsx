@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, ShieldCheck, Leaf } from 'lucide-react'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function Hero() {
+  const leftRef = useScrollAnimation({ threshold: 0.2 })
+  const rightRef = useScrollAnimation({ threshold: 0.2 })
+
   return (
     <section className="relative bg-bg-cream pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div ref={leftRef} className="reveal-left">
             <p className="text-primary font-medium text-sm tracking-wide uppercase mb-4">
               Colombe Santé Bio Africa
             </p>
@@ -39,7 +43,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative">
+          <div ref={rightRef} className="relative reveal-right">
             <div className="relative rounded-3xl overflow-hidden bg-bg-green-light aspect-[4/5] max-w-md mx-auto lg:ml-auto">
               <img
                 src="/images/drepasolu.png"

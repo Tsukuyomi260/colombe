@@ -1,4 +1,5 @@
-import { Heart, Shield, Microscope, Leaf, Beaker, GraduationCap } from 'lucide-react'
+import { Heart, Shield, Leaf } from 'lucide-react'
+import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 
 const values = [
   {
@@ -19,20 +20,26 @@ const values = [
 ]
 
 export default function Values() {
+  const titleRef = useScrollAnimation()
+  const gridRef = useStaggerAnimation()
+  const taglineRef = useScrollAnimation()
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">
-          Spécialiste en santé intégrative
-        </h2>
-        <p className="text-text-gray max-w-2xl mx-auto mb-16">
-          Notre expertise en phyto-médecine moderne au service de votre santé.
-          Des compléments alimentaires naturels, sûrs et efficaces.
-        </p>
+        <div ref={titleRef} className="reveal-up">
+          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">
+            Spécialiste en santé intégrative
+          </h2>
+          <p className="text-text-gray max-w-2xl mx-auto mb-16">
+            Notre expertise en phyto-médecine moderne au service de votre santé.
+            Des compléments alimentaires naturels, sûrs et efficaces.
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-10">
+        <div ref={gridRef} className="grid md:grid-cols-3 gap-10">
           {values.map((v) => (
-            <div key={v.title} className="flex flex-col items-center">
+            <div key={v.title} className="flex flex-col items-center reveal-item">
               <div className="w-20 h-20 bg-bg-green-light rounded-2xl flex items-center justify-center mb-6">
                 <v.icon size={36} className="text-primary" />
               </div>
@@ -42,7 +49,7 @@ export default function Values() {
           ))}
         </div>
 
-        <div className="mt-16 space-y-2 text-text-gray">
+        <div ref={taglineRef} className="mt-16 space-y-2 text-text-gray animate-fade-up">
           <p>Votre santé, notre mission.</p>
           <p className="font-semibold text-text-dark">
             Nature • Confiance • Excellence

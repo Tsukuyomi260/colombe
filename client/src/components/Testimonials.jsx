@@ -1,4 +1,5 @@
 import { Star, Quote } from 'lucide-react'
+import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 
 const testimonials = [
   {
@@ -19,10 +20,13 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
+  const titleRef = useScrollAnimation()
+  const gridRef = useStaggerAnimation({ staggerDelay: 150 })
+
   return (
     <section className="py-20 bg-bg-green-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-16 reveal-up">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">
             Ce que disent nos clients
           </h2>
@@ -31,9 +35,9 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div ref={gridRef} className="grid md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-white rounded-2xl p-8 shadow-sm">
+            <div key={i} className="bg-white rounded-2xl p-8 shadow-sm reveal-item">
               <Quote size={32} className="text-primary/20 mb-4" />
               <p className="text-text-gray leading-relaxed mb-6">"{t.text}"</p>
               <div className="flex items-center justify-between">

@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom'
 import { ShoppingCart, ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { products } from '../data/products'
+import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 import toast from 'react-hot-toast'
 
 export default function FeaturedProducts() {
   const { dispatch } = useCart()
   const featured = products.filter(p => p.featured)
+  const titleRef = useScrollAnimation()
+  const gridRef = useStaggerAnimation({ staggerDelay: 150 })
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_ITEM', payload: product })
@@ -20,7 +23,7 @@ export default function FeaturedProducts() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-16 reveal-up">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">
             Nos compléments alimentaires
           </h2>
@@ -30,11 +33,11 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featured.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group"
+              className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group reveal-item"
             >
               <div className="aspect-square bg-bg-green-light relative overflow-hidden">
                 <img

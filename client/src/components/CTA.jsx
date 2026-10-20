@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, MessageCircle } from 'lucide-react'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function CTA() {
+  const ref = useScrollAnimation({ threshold: 0.2 })
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-primary rounded-3xl overflow-hidden">
+        <div ref={ref} className="bg-primary rounded-3xl overflow-hidden reveal-scale">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="p-10 lg:p-16">
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-6">
